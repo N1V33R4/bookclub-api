@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('book_genres', function (Blueprint $table) {
             $table->foreignIdFor(Book::class);
             $table->foreignIdFor(Genre::class);
-            $table->timestamps();
+            $table->primary(['book_id', 'genre_id']);
         });
     }
 

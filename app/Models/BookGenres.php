@@ -4,13 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Genre extends Model
+class BookGenres extends Pivot
 {
     use HasFactory;
-
-    public function books()
-    {
-        return $this->belongsToMany(Book::class, 'book_genres');
-    }
 }

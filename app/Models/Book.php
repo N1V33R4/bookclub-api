@@ -9,8 +9,6 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
     public function discussions()
     {
         return $this->hasMany(Discussion::class);
@@ -23,6 +21,6 @@ class Book extends Model
 
     public function genres()
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(Genre::class, 'book_genres');
     }
 }

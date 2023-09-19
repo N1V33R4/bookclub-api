@@ -9,8 +9,6 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
     public function discussion()
     {
         return $this->belongsTo(Discussion::class);
