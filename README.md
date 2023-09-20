@@ -9,6 +9,7 @@ Create an .env file and specify database name
 ```shell
 composer install
 php artisan storage:link
+php artisan key:generate
 php artisan migrate
 ```
 > type yes if artisan asks if you want to create database

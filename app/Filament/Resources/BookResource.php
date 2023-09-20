@@ -60,6 +60,7 @@ class BookResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 FileUpload::make('front_cover')
+                    ->image()
                     ->moveFiles()
                     ->required(),
                 FileUpload::make('back_cover')
