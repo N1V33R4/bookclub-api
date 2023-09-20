@@ -8,6 +8,7 @@ use App\Models\Book;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -63,9 +64,25 @@ class BookResource extends Resource
                     ->image()
                     ->moveFiles()
                     ->required(),
-                FileUpload::make('back_cover')
-                    ->image()
-                    ->moveFiles(),
+                // FileUpload::make('back_cover')
+                //     ->image()
+                //     ->moveFiles(),
+                Radio::make('rating')
+                    ->required()
+                    ->options([
+                        1 => '⭐', 
+                        2 => '⭐⭐', 
+                        3 => '⭐⭐⭐', 
+                        4 => '⭐⭐⭐⭐', 
+                        5 => '⭐⭐⭐⭐⭐'
+                    ])
+                    ->descriptions([
+                        1 => 'Terrible!', 
+                        2 => 'Meh', 
+                        3 => 'So-so', 
+                        4 => 'Insightful', 
+                        5 => 'Life-changing!'
+                    ]),
             ]);
     }
 
