@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Discussion;
 use App\Http\Requests\StoreDiscussionRequest;
 use App\Http\Requests\UpdateDiscussionRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DiscussionController extends Controller
 {
@@ -13,7 +15,7 @@ class DiscussionController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Discussion::all());
     }
 
     /**
@@ -27,9 +29,24 @@ class DiscussionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDiscussionRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:500',
+            'book_id' => 'required|integer|exists:books,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $new_discussion = Discussion::create([
+            'title' => $request->title,
+            'book_id' => $request->book_id,
+            'user_id' => $request->user()->id
+        ]);
+
+        return response()->json($new_discussion);
     }
 
     /**
@@ -51,9 +68,25 @@ class DiscussionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDiscussionRequest $request, Discussion $discussion)
+    public function update(Request $request, Discussion $discussion)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:500',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        if ($request->user()->id != $discussion->user_id) {
+            return response()->json(['message' => 'Cannot update discussion that are\'t yours.'], 401);
+        }
+
+        $updated_discussion = $discussion->update([
+            'title' => $request->title,
+        ]);
+
+        return response()->json($updated_discussion);
     }
 
     /**
