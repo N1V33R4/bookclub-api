@@ -6,17 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class CommentVote extends Pivot
+class CommentVote extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        "score"
-    ];
-
     public function comment()
     {
-        return $this->belongsTo(comment::class);
+        return $this->belongsTo(Comment::class);
     } 
 
     public function user()

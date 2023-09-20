@@ -28,4 +28,9 @@ class Comment extends Model
     {
         return $this->hasMany(self::class, "reply_to_comment_id");
     }
+
+    public function votes()
+    {
+        return $this->hasMany(CommentVote::class);
+    }
 }
