@@ -48,6 +48,11 @@ class BookPolicy
         return true;
     }
 
+    public function deleteAny(User $user): bool
+    {
+        return true;
+    }
+
     /**
      * Determine whether the user can restore the model.
      */
