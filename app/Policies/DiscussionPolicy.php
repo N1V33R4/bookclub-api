@@ -13,7 +13,7 @@ class DiscussionPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class DiscussionPolicy
      */
     public function view(User $user, Discussion $discussion): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class DiscussionPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class DiscussionPolicy
      */
     public function update(User $user, Discussion $discussion): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +45,7 @@ class DiscussionPolicy
      */
     public function delete(User $user, Discussion $discussion): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class DiscussionPolicy
      */
     public function restore(User $user, Discussion $discussion): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -61,6 +61,6 @@ class DiscussionPolicy
      */
     public function forceDelete(User $user, Discussion $discussion): bool
     {
-        //
+        return true;
     }
 }
