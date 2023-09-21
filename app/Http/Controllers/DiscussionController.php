@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Discussion;
 use App\Http\Requests\StoreDiscussionRequest;
 use App\Http\Requests\UpdateDiscussionRequest;
+use App\Models\CommentVote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class DiscussionController extends Controller
@@ -57,6 +59,30 @@ class DiscussionController extends Controller
         //
     }
 
+    public function get_comments(Discussion $discussion)
+    {
+        $comments = $discussion->comments()
+            ->whereNull('reply_to_comment_id')
+            ->withCount('replies')
+            // ->withSum('votes', 'score')
+            ->orderBy('likes', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        $user = auth('sanctum')->user();
+        if ($user) {
+            $liked_comment_ids = CommentVote::where('comment_id', 1)
+                ->where('user_id', $user->id)
+                ->get('comment_id')
+                ->pluck('comment_id');
+        }
+
+        return response()->json([
+            'comments' => $comments,
+            'liked_comment_ids' => $liked_comment_ids ?? [],
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -78,15 +104,17 @@ class DiscussionController extends Controller
             return response()->json($validator->errors());
         }
 
-        if ($request->user()->id != $discussion->user_id) {
-            return response()->json(['message' => 'Cannot update discussion that are\'t yours.'], 401);
+        if ($request->user()->id != $discussion->user->id) {
+            return response()->json([
+                'message' => 'Cannot update discussion that isn\'t yours.',
+            ], 401);
         }
 
-        $updated_discussion = $discussion->update([
+        $discussion->update([
             'title' => $request->title,
         ]);
 
-        return response()->json($updated_discussion);
+        return response()->json($discussion);
     }
 
     /**
