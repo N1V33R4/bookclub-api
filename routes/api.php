@@ -29,11 +29,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('logout', [UserController::class, 'logout']);
 
     Route::post('discussions', [DiscussionController::class, 'store']);
-    Route::patch('discussions/{dicussion}', [DiscussionController::class, 'update']);
+    Route::patch('discussions/{discussion}', [DiscussionController::class, 'update']);
     Route::post('comments', [CommentController::class, 'store']);
     Route::patch('comments/{comment}', [CommentController::class, 'update']);
     
-    Route::post('comments/upvote/{comment}', [CommentController::class, 'upvote']);
+    Route::post('comments/{comment}/upvote', [CommentController::class, 'upvote']);
+    Route::post('comments/{comment}/downvote', [CommentController::class, 'downvote']);
 });
 
 Route::post('login', [UserController::class, 'index']);
@@ -42,3 +43,9 @@ Route::post('register', [UserController::class, 'register']);
 Route::get('books', [BookController::class, 'index']);
 Route::get('books/{book}', [BookController::class, 'show']);
 Route::post('books', [BookController::class, 'store']);
+
+// Get comments of in a discussion
+Route::get('discussions/{discussion}/comments', [DiscussionController::class, 'get_comments']);
+
+// Get replies to a comment
+Route::get('comments/{comment}/replies', [CommentController::class, 'get_replies']);

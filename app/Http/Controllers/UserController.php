@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -13,6 +14,8 @@ class UserController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'name' => 'required|string|max:255',
+      'email' => 'required|email|max:255|unique:users',
+      'password' => ['required', Password::min(3)],
     ]);
 
     if ($validator->fails()) {

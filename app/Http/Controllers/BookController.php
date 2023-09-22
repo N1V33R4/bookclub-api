@@ -69,6 +69,7 @@ class BookController extends Controller
             'description' => $request->description,
             'front_cover' => $front_cover_name,
             'back_cover' => $back_cover_name ?? null,
+            'rating' => $request->rating,
         ]);
 
         return response()->json($new_book);
@@ -79,7 +80,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return response()->json($book->load('genres'));
+        return response()->json($book->load(['genres', 'discussions.user']));
     }
 
     /**
