@@ -48,7 +48,7 @@ class DiscussionController extends Controller
             'user_id' => $request->user()->id
         ]);
 
-        return response()->json($new_discussion);
+        return response()->json($new_discussion->load('user'));
     }
 
     /**
