@@ -64,7 +64,7 @@ class DiscussionController extends Controller
         $comments = $discussion->comments()
             ->whereNull('reply_to_comment_id')
             ->withCount('replies')
-            ->with('replies')
+            ->with('user:id,name', 'replies')
             // ->withSum('votes', 'score')
             ->orderBy('likes', 'desc')
             ->orderBy('created_at', 'asc')
