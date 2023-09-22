@@ -98,12 +98,24 @@ class BookResource extends Resource
                     ->searchable(),
                 ImageColumn::make('front_cover'),
                 TextColumn::make('genres.name'),
+                TextColumn::make('rating'),
+                    // ->formatStateUsing(function (string $state): string {
+                    //     return str_repeat('⭐', $state);
+                    // }),
             ])
             ->filters([
                 SelectFilter::make('genres')
                     ->relationship('genres', 'name')
                     ->multiple()
-                    ->preload()
+                    ->preload(),
+                SelectFilter::make('rating')
+                    ->options([
+                        1 => '⭐', 
+                        2 => '⭐⭐', 
+                        3 => '⭐⭐⭐', 
+                        4 => '⭐⭐⭐⭐', 
+                        5 => '⭐⭐⭐⭐⭐'
+                    ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
