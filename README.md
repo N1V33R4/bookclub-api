@@ -1,5 +1,9 @@
 Api for bookclub project
 
+Made using Laravel, Sanctum and Filament. 
+
+This was built over the period of a week during our practical training session at [Wintech](https://wintech.com.kh/). 
+
 # Setup
 Make sure your php version is at least 8.0^
 
@@ -20,7 +24,7 @@ php artisan icons:cache
 php artisan make:filament-user
 ```
 
-# Screenshot
+# Screenshots
 ## Admin panel (Filament)
 Login
 ![login](./sample-images/login.png)
