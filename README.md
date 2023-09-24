@@ -31,8 +31,8 @@ Book edit
 
 ## React frontend
 Home
-![react-home](react-home.png)
+![react-home](./sample-images/react-home.png)
 Book detail
-![bookdetail](bookdetail.png)
+![bookdetail](./sample-images/bookdetail.png)
 Login 
-![react-login](react-login.png)
+![react-login](./sample-images/react-login.png)
