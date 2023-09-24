@@ -72,7 +72,7 @@ class DiscussionController extends Controller
 
         $user = auth('sanctum')->user();
         if ($user) {
-            $liked_comment_ids = CommentVote::where('comment_id', 1)
+            $liked_comment_ids = CommentVote::whereIn('comment_id', $comments->pluck('id'))
                 ->where('user_id', $user->id)
                 ->get('comment_id')
                 ->pluck('comment_id');

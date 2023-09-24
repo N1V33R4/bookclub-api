@@ -80,7 +80,19 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return response()->json($book->load(['genres', 'discussions.user']));
+        return response()->json($book->load(['genres', 'discussions.user', 'discussions.comments']));
+    }
+
+    public function get_discussions(Book $book)
+    {
+        $discussions = $book->discussions()
+            ->with('comments')
+            ->withCount('comments')
+            ->orderBy('comments_count', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return response()->json($discussions);
     }
 
     /**

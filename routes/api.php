@@ -44,6 +44,9 @@ Route::get('books', [BookController::class, 'index']);
 Route::get('books/{book}', [BookController::class, 'show']);
 Route::post('books', [BookController::class, 'store']);
 
+// Get book's discussions
+Route::get('books/{book}/discussions/', [BookController::class, 'get_discussions']);
+
 // Get comments of in a discussion
 Route::get('discussions/{discussion}/comments', [DiscussionController::class, 'get_comments']);
 
